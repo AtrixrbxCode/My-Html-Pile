@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clicker Game</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin-top: 50px;
+  }
+  #score {
+    font-size: 2em;
+    margin-bottom: 20px;
+  }
+  button {
+    padding: 10px 20px;
+    margin: 10px;
+    cursor: pointer;
+  }
+</style>
+</head>
+<body>
+
+<h1>Clicker Game</h1>
+<p>Your score: <span id="score">0</span></p>
+<button id="clickButton">Click!</button>
+<button id="upgradeButton">Upgrade</button>
+<button id="autoClickerButton">Auto Clicker</button>
+
+<script>
+let score = 0;
+let clicks = 0;
+let upgradeCost = 100; // Cost for each upgrade
+let autoClickerCost = 500; // Cost for each auto-clicker
+let upgradeLevel = 0; // Current upgrade level
+
+function click() {
+    clicks++;
+    score += (10 + (upgradeLevel * 5)); // Increase score by 10 + (upgradeLevel * 5) for each click
+    document.getElementById('score').innerText = score;
+}
+
+function buyUpgrade() {
+    if (clicks >= upgradeCost) {
+        clicks -= upgradeCost; // Deduct the cost from clicks
+        upgradeLevel++; // Increase the upgrade level
+        document.getElementById('upgradeButton').disabled = false; // Enable the button again
+        document.getElementById('autoClickerButton').disabled = false; // Enable the button again
+        document.getElementById('upgradeButton').innerText = 'Upgrade';
+        document.getElementById('autoClickerButton').innerText = 'Auto Clicker';
+        console.log(`You bought an upgrade! Your new click rate is ${10 + (upgradeLevel * 5)} per click.`);
+    } else {
+        document.getElementById('upgradeButton').innerText = 'Not enough clicks!';
+        document.getElementById('upgradeButton').disabled = true; // Disable the button until enough clicks are accumulated
+    }
+}
+
+function buyAutoClicker() {
+    if (clicks >= autoClickerCost) {
+        clicks -= autoClickerCost; // Deduct the cost from clicks
+        console.log(`You bought an auto-clicker!`);
+        // Additional code to implement auto-clicking functionality can be added here
+    } else {
+        document.getElementById('autoClickerButton').innerText = 'Not enough clicks!';
+        document.getElementById('autoClickerButton').disabled = true; // Disable the button until enough clicks are accumulated
+    }
+}
+
+// Set up auto-clicking functionality
+setInterval(() => {
+    click();
+}, 1000); // Click every second
+
+// Event listener for the click button
+document.getElementById('clickButton').addEventListener('click', click);
+
+// Event listeners for the upgrade and auto-clicker buttons
+document.getElementById('upgradeButton').addEventListener('click', buyUpgrade);
+document.getElementById('autoClickerButton').addEventListener('click', buyAutoClicker);
+</script>
+
+</body>
+</html>
