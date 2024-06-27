@@ -50,7 +50,50 @@ function incrementScore() {
   score++;
   document.getElementById('score').textContent = score;
 }
+<script>
+// Add this script within the existing <script> tag
+
+let score = 0;
+let clickSpeed = 1;
+let scoreMultiplier = 1;
+
+function incrementScore() {
+  score += clickSpeed * scoreMultiplier;
+  document.getElementById('score').textContent = score;
+}
+
+function applyUpgrade(upgradeIndex) {
+  switch (upgradeIndex) {
+    case 0:
+      clickSpeed *= 1.1; // Increase click speed by 10%
+      break;
+    case 1:
+      scoreMultiplier += 0.05; // Increase score multiplier by 5%
+      break;
+    case 2:
+      clickSpeed += 1; // Increase score per click by 1
+      break;
+    default:
+      console.log('Invalid upgrade index');
+      break;
+  }
+}
+
+// Example usage: applyUpgrade(0); // Apply Upgrade 1
+</script>
+
 </script>
 
 </body>
+<!-- Add this section within the <body> tag after the existing code -->
+<div id="upgrades">
+  <h2>Upgrades</h2>
+  <ul id="upgrade-list">
+    <li>Upgrade 1: +10% Click Speed</li>
+    <li>Upgrade 2: +5 Score Multiplier</li>
+    <li>Upgrade 3: +1 Score Per Click</li>
+  </ul>
+</div>
 </html>
+
+
